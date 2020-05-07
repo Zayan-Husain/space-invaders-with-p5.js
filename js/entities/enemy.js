@@ -6,12 +6,15 @@ class enemy extends yentity {
 		this.type = 'enemy';
 		this.dir = 1;
 		this.grafic_type = 'none';
+		this.shootTimer = new ytimer(this.rand(200) + 60);
 	} //end constructor
 
 	update() {
 		var t = this;
 		super.update();
 		t.move();
+		t.losingCondition();
+		t.shoot();
 	} //end update
 
 	move() {
@@ -36,5 +39,19 @@ class enemy extends yentity {
 			t.sx(630);
 		}
 	} //end move
+	shoot() {
+		var t = this;
+		if (t.shootTimer.finished()) {
+			var b = new bullet(t.x, t.y + 20);
+			b.team = 'enemy';
+			b.dir = 'down';
+			t.world.add(b);
+		}
+	} //end shoot
+	losingCondition() {
+		if (this.y > 480) {
+			this.world.change_world('game_over', true);
+		}
+	}
 } //end class
 ///////////////end "+name+"///////////////////

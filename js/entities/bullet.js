@@ -29,9 +29,14 @@ class bullet extends yentity {
 	}
 	hit_stuff() {
 		var e = this.hit_test('enemy', 0, 0);
-		if (e) {
+		var p = this.hit_test('player', 0, 0);
+		if (e && this.team == 'player') {
+			this.world.score += 10;
 			this.world.remove(this);
 			this.world.remove(e);
+		}
+		if (p && this.team == 'enemy') {
+			this.world.change_world('game_over', true);
 		}
 	}
 } //end class

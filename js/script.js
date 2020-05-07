@@ -1,20 +1,22 @@
+var d = document;
 var yscreen = { w: 640, h: 480 };
 //init engine
 var yeng = new yengine();
 
 var tste, tste2;
 var current_world;
-
 function setup() {
 	createCanvas(yscreen.w, yscreen.h);
 	frameRate(60);
 
 	//create worlds
 	var ystart_world = new start_world('start');
+	var yvictory_world = new victory_world('victory_world');
 	var ygame_over_world = new game_over('game_over');
 	var ygame_world = new game_world('game_world');
 	//add worlds
 	yeng.add_world(ystart_world);
+	yeng.add_world(yvictory_world);
 	yeng.add_world(ygame_over_world);
 	yeng.add_world(ygame_world);
 
@@ -31,5 +33,4 @@ function draw() {
 	current_world = yeng.get_c_world();
 	current_world.update();
 	current_world.render();
-
 }

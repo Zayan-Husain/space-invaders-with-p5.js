@@ -6,17 +6,13 @@ class player extends yentity {
 		this.type = 'player';
 		this.shootTimer = new ytimer(10);
 	} //end constructor
-
 	update() {
 		var t = this;
 		super.update();
 		t.move();
 		t.shoot();
-		//////////////////////////score text/////////////////////////
-
-		//////////////////////end score text/////////////////////////
+		t.victoryCondition();
 	} //end update
-
 	move() {
 		var t = this;
 		if (keyDown('a')) {
@@ -26,12 +22,22 @@ class player extends yentity {
 			t.move_by(t.speed, 0);
 		}
 	} //end move
-
 	shoot() {
 		var t = this;
 		if (keyDown('space') && t.shootTimer.finished()) {
 			t.world.add(new bullet(t.x, t.y - 20));
 		}
-	} //end move
+		var d = document;
+		var cheat = d.querySelector('.cheat');
+		cheat.addEventListener('click', () => {
+			t.shootTimer = new ytimer(1);
+		});
+	} //end shoot
+	victoryCondition() {
+		var enemies = this.get_by_type('enemy');
+		if (enemies.length == 0) {
+			this.world.change_world('victory_world', true);
+		}
+	}
 } //end class
 ///////////////end "+name+"///////////////////

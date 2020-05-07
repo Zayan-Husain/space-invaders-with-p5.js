@@ -1,3 +1,9 @@
-.reloadText2 {
-	color: red;
+.cheat {
+	position: absolute;
+	height: 40px;
+	width: 100px;
+	background-color: white !important;
+	border: none;
+	bottom: 0;
+	cursor: default;
 }

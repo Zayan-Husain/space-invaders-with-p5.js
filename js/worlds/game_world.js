@@ -2,20 +2,21 @@
 class game_world extends world {
 	constructor(name2) {
 		super(name2);
+		var t = this;
+		t.score = 0;
 	}
 
 	init() {
 		var t = this;
 		//reset all
 		t.entitys = [];
-
+		t.score = 0;
 		var yplayer = new player(200, 450, '');
 		yplayer.grafic_type = 'none';
 		yplayer.debug = true;
 
 		t.add(yplayer);
 		this.create_enemy_grid();
-		//t.add(new enemy(20, 50));
 	} //end init
 	create_enemy_grid() {
 		var t = this;
@@ -26,6 +27,15 @@ class game_world extends world {
 				t.add(new enemy(j * w, i * h));
 			}
 		}
+	} //end create enemy grid
+	render() {
+		super.render();
+		var t = this;
+		//////////////////////////score text/////////////////////////
+		textAlign(CENTER);
+		fill(255);
+		text('Score: ' + t.score, 640 / 2, 22);
+		//////////////////////end score text/////////////////////////
 	}
 } //end world class
 ///////////////end game_world world///////////////////
